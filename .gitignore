@@ -1,0 +1,63 @@
+# General
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+secrets/
+
+# PHP / Composer / Laravel
+/vendor/
+/bootstrap/cache/*.php
+/storage/*.key
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+.phpunit.cache/
+.phpunit.result.cache
+auth.json
+
+# Node / Vue / Vite
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+coverage/
+.vite/
+dist/
+
+# Build outputs
+/build/
+/out/
+/target/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+*.sublime-workspace
+*.sublime-project
+
+# OS/editor temporary files
+.directory
+*.orig
+*.rej
