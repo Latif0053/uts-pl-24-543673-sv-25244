@@ -1,68 +1,63 @@
-# LabTrack
+# TaskTrack
 
-LabTrack adalah rancangan sistem inventaris perangkat praktikum untuk membantu pencatatan dan pemantauan perangkat di laboratorium. Proyek ini dikerjakan sebagai UTS mata kuliah Konstruksi dan Evolusi Perangkat Lunak.
+TaskTrack adalah rancangan aplikasi web untuk membantu mahasiswa mengelola tugas pribadi dan perkuliahan. Proyek ini dikerjakan sebagai UTS mata kuliah Konstruksi dan Evolusi Perangkat Lunak.
 
 **Mahasiswa:** Alief Muhammad Latif
-
 **NIM:** 24/543673/SV/25244
-
 **Lingkungan pengembangan:** Fedora
 
 ## Masalah
 
-Pencatatan perangkat praktikum yang tersebar atau dilakukan secara manual dapat menyulitkan pencarian data, pemeriksaan ketersediaan, dan pemantauan kondisi perangkat. LabTrack direncanakan untuk menyediakan pencatatan inventaris yang terpusat.
+Tugas perkuliahan sering tersebar di berbagai catatan dan kanal, sehingga mahasiswa dapat kesulitan melihat tenggat, menentukan prioritas, serta mengetahui tugas yang belum atau sudah selesai. TaskTrack dirancang untuk menyatukan pencatatan dan pemantauan tugas pribadi.
 
 ## Tujuan
 
-Membangun aplikasi web yang membantu pengelola laboratorium mencatat perangkat, melihat inventaris, dan mengelola informasi dasar perangkat melalui antarmuka yang mudah digunakan.
+Menyediakan aplikasi sederhana agar pengguna dapat mencatat tugas perkuliahan, mengatur prioritas dan statusnya, serta melihat ringkasan pekerjaan yang perlu ditangani.
 
 ## Fitur MVP yang direncanakan
 
-- Autentikasi pengguna.
-- Melihat daftar dan detail perangkat.
-- Menambah, mengubah, dan menghapus data perangkat.
-- Menyimpan informasi dasar seperti nama, kode inventaris, kategori, jumlah, kondisi, dan lokasi.
-- Validasi masukan dan respons yang jelas untuk operasi inventaris.
+- Login dan logout menggunakan token. Sesuai soal, semua endpoint selain login harus memerlukan token.
+- CRUD tugas pribadi/perkuliahan dengan `title`, `description` opsional, `course/category` opsional, `due_date` opsional, `priority` (`low`, `medium`, `high`), dan `status` (`todo`, `in_progress`, `done`).
+- Setiap tugas dimiliki pengguna terautentikasi; pengguna hanya dapat membaca, mengubah, dan menghapus tugas miliknya sendiri.
+- Antarmuka Vue menampilkan ringkasan tugas, daftar yang dapat difilter menurut status dan prioritas, form tambah/edit, aksi menandai selesai, dan aksi hapus.
 
-Daftar ini adalah target MVP, bukan pernyataan bahwa fitur sudah tersedia.
+Kalender canggih, notifikasi, kolaborasi, dan fitur sosial tidak termasuk MVP. **Fitur-fitur di atas belum tersedia sampai benar-benar diimplementasikan dan diverifikasi**; daftar ini adalah target, bukan klaim implementasi.
 
 ## Teknologi rencana
 
 - Vue untuk antarmuka web.
-- Laravel sebagai REST API.
-- MySQL sebagai basis data.
-- Laravel Sanctum untuk autentikasi API.
-- Axios untuk komunikasi HTTP dari Vue.
-- GitHub Actions untuk pemeriksaan CI.
+- Axios untuk komunikasi HTTP.
+- Laravel REST API dengan Laravel Sanctum untuk autentikasi token.
+- MySQL untuk penyimpanan data.
+- GitHub Actions untuk CI.
 - Docker dan Docker Compose untuk lingkungan pengembangan yang dapat diulang.
-- FrankenPHP sebagai opsi runtime/deployment yang direncanakan untuk dievaluasi.
+- FrankenPHP akan dievaluasi sebagai opsi runtime; belum diputuskan.
 
-Rincian arsitektur dan urutan pekerjaan ada di [dokumen arsitektur](docs/architecture.md) dan [rencana implementasi](docs/implementation-plan.md).
+Rincian target ada di [dokumen arsitektur](docs/architecture.md) dan [rencana implementasi](docs/implementation-plan.md).
 
 ## Status aktual
 
-Tahap 01 hanya menyiapkan fondasi dokumentasi. Repository saat ini belum berisi aplikasi Laravel atau Vue, API, skema basis data, CI, maupun konfigurasi Docker. Tidak ada fitur aplikasi yang dapat diklaim selesai atau telah diuji.
+Tahap 01 hanya merevisi fondasi dokumentasi. Repository belum berisi aplikasi Laravel atau Vue, endpoint API, skema basis data, CI, maupun konfigurasi Docker. Login, pengelolaan tugas, isolasi data pengguna, dan seluruh fitur MVP **belum dibuat**.
 
-## Pengembangan ringkas
+## Cara kerja
 
-Setelah fondasi ini, implementasi direncanakan bertahap: siapkan backend dan basis data, bangun API serta autentikasi, buat antarmuka Vue, lalu lengkapi integrasi, CI, dan dokumentasi. Tahap yang sedang dikerjakan dan bukti penyelesaiannya harus dicatat sesuai [rencana implementasi](docs/implementation-plan.md).
+Setelah fondasi dokumentasi, pekerjaan direncanakan bertahap: menyiapkan backend dan basis data, membangun API serta autentikasi, membuat antarmuka Vue, lalu mengintegrasikan layanan dan CI. Catat hanya tahap dan bukti yang benar-benar sudah dikerjakan sesuai [rencana implementasi](docs/implementation-plan.md).
 
 ## Keamanan
 
 - Jangan menambahkan `.env`, token, kata sandi, kunci privat, atau kredensial ke Git.
-- Simpan konfigurasi lokal di file environment yang tidak dilacak; sediakan contoh tanpa nilai rahasia hanya ketika konfigurasi aplikasi benar-benar dibuat.
-- Validasi dan otorisasi setiap operasi API saat implementasi.
-- Gunakan autentikasi dan mekanisme perlindungan yang sesuai; jangan menganggap rancangan ini sebagai bukti kontrol keamanan telah diterapkan.
+- Simpan konfigurasi lokal di file environment yang tidak dilacak; sediakan contoh tanpa nilai rahasia ketika konfigurasi aplikasi dibuat.
+- Saat implementasi, wajibkan token pada semua endpoint selain login dan batasi setiap operasi tugas ke pemilik yang terautentikasi.
+- Validasi masukan dan jangan menganggap rancangan ini sebagai bukti bahwa kontrol keamanan telah diterapkan.
 
 ## Struktur target
 
-Struktur berikut adalah gambaran sasaran, belum ada di repository:
+Struktur berikut adalah gambaran sasaran dan belum ada di repository:
 
 ```text
 .
 ├── app/                 # Backend Laravel
 ├── database/            # Migrasi dan seeder Laravel
-├── resources/           # Sumber daya backend bila diperlukan
 ├── routes/              # Rute REST API Laravel
 ├── frontend/            # Aplikasi Vue dan Vite
 ├── docs/                # Dokumentasi proyek
